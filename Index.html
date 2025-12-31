@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeshiCart - Your Trusted Electronics Store in Bangladesh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #fbbf24;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 20px;
+        }
+
+        .nav-icons i {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-icons i:hover {
+            transform: scale(1.2);
+            color: #fbbf24;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            background: #fbbf24;
+            color: #047857;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #047857;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #fbbf24;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #047857;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ef4444;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.new {
+            background: #10b981;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #047857;
+            margin-bottom: 15px;
+        }
+
+        .product-price .original-price {
+            font-size: 16px;
+            color: #9ca3af;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .rating i {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .rating span {
+            color: #6b7280;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: #047857;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            background: #059669;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #fbbf24;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: #fbbf24;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 24px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .social-icons i:hover {
+            color: #fbbf24;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                justify-content: space-between;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+        }
+
+        /* Chat Widget Styling */
+        #chat-widget-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 2000;
+            overflow: hidden;
+        }
+
+        #chat-widget-header {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        #chat-widget-header button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        #chat-widget-header button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #chat-widget-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+
+        #chat-widget-body p {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            word-wrap: break-word;
+            max-width: 80%;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #chat-widget-body p.user-message {
+            background: #f1f1f1;
+            color: #333;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        #chat-widget-body p.bot-message {
+            background: #047857;
+            color: white;
+            margin-right: auto;
+        }
+
+        #chat-widget-footer {
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 10px;
+            background: white;
+        }
+
+        #chat-widget-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        #chat-widget-input:focus {
+            border-color: #047857;
+        }
+
+        #chat-widget-send {
+            background: #047857;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        #chat-widget-send:hover {
+            background: #059669;
+        }
+
+        #chat-widget-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #chat-widget-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
+        }
+
+        @media (max-width: 480px) {
+            #chat-widget-container {
+                width: calc(100vw - 20px);
+                height: calc(100vh - 20px);
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Chat Widget Button -->
+    <button id="chat-widget-button">💬</button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget-container">
+        <div id="chat-widget-header">
+            <span>DeshiCart Support</span>
+            <button onclick="closeChatWidget()">✖</button>
+        </div>
+        <div id="chat-widget-body">
+            <p class="bot-message"><strong>Hi 👋, how can we help you today?</strong></p>
+        </div>
+        <div id="chat-widget-footer">
+            <input type="text" id="chat-widget-input" placeholder="Type your message here...">
+            <button id="chat-widget-send">Send</button>
+        </div>
+    </div>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                DeshiCart
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#deals">Deals</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Welcome to DeshiCart</h1>
+        <p>Your Trusted Electronics Store in Bangladesh</p>
+        <button class="hero-btn">Shop Now <i class="fas fa-arrow-right"></i></button>
+    </section>
+
+    <!-- Products Section -->
+    <div class="container" id="products">
+        <h2 class="section-title">Featured Electronics</h2>
+        
+        <div class="product-grid">
+            <!-- Product 1: Headphones -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-headphones"></i>
+                    <span class="badge new">NEW</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Premium Wireless Headphones</h3>
+                    <p class="product-description">Noise-cancelling technology with 30-hour battery life and premium sound quality</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.5/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳4,999
+                        <span class="original-price">৳7,999</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2: Bluetooth Speaker -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-volume-up"></i>
+                    <span class="badge">-40%</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Portable Bluetooth Speaker</h3>
+                    <p class="product-description">Waterproof design with 360° sound and 12-hour playtime</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(4.0/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳2,499
+                        <span class="original-price">৳4,199</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3: Wireless Earbuds -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-headphones-alt"></i>
+                    <span class="badge new">NEW</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">True Wireless Earbuds</h3>
+                    <p class="product-description">Touch control earbuds with charging case and crystal clear sound</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(5.0/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳3,299
+                        <span class="original-price">৳5,999</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4: Smart Watch -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-clock"></i>
+                    <span class="badge">-30%</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Smart Watch Pro</h3>
+                    <p class="product-description">Fitness tracker with heart rate monitor and multiple sport modes</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.5/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳5,999
+                        <span class="original-price">৳8,599</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5: Power Bank -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-battery-full"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">20000mAh Power Bank</h3>
+                    <p class="product-description">Fast charging power bank with dual USB ports and LED display</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(4.2/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳1,799
+                        <span class="original-price">৳2,999</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6: USB Cable -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-plug"></i>
+                    <span class="badge">-50%</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Fast Charging Cable Set</h3>
+                    <p class="product-description">Durable braided cables with multiple connectors - 3 pack</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(4.8/5)</span>
+                    </div>
+                    <div class="product-price">
+                        ৳499
+                        <span class="original-price">৳999</span>
+                    </div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About DeshiCart</h3>
+                <p>Your trusted online electronics store in Bangladesh. We provide quality products at affordable prices with fast delivery across the country.</p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#products">Products</a>
+                <a href="#deals">Deals & Offers</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <a href="#faq">FAQ</a>
+                <a href="#shipping">Shipping Info</a>
+                <a href="#returns">Returns & Exchanges</a>
+                <a href="#warranty">Warranty Policy</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +880 1234-567890</p>
+                <p><i class="fas fa-envelope"></i> support@deshicart.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 DeshiCart. All rights reserved. Made with <i class="fas fa-heart" style="color: #ef4444;"></i> in Bangladesh</p>
+        </div>
+    </footer>
+
+    <script>
+        // Chat Widget Configuration
+        window.ChatWidgetConfig = {
+            webhook: {
+                url: 'https://n8n.srv915514.hstgr.cloud/webhook/bf4d8ab4-c319-4b21-aa49-220101d8724b/chat',
+                route: 'general'
+            },
+            style: {
+                primaryColor: '#047857',
+                secondaryColor: '#059669',
+                position: 'right',
+                backgroundColor: '#ffffff',
+                fontColor: '#333333'
+            }
+        };
+
+        // Function to generate or retrieve a unique chat ID
+        function getChatId() {
+            let chatId = sessionStorage.getItem("chatId");
+            if (!chatId) {
+                chatId = "chat_" + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem("chatId", chatId);
+            }
+            return chatId;
+        }
+
+        // Show chat widget and hide bubble
+        document.getElementById("chat-widget-button").addEventListener("click", function() {
+            document.getElementById("chat-widget-container").style.display = "flex";
+            document.getElementById("chat-widget-button").style.display = "none";
+        });
+
+        // Close chat widget and show bubble
+        function closeChatWidget() {
+            document.getElementById("chat-widget-container").style.display = "none";
+            document.getElementById("chat-widget-button").style.display = "flex";
+        }
+
+        // Send message to n8n webhook
+        document.getElementById("chat-widget-send").addEventListener("click", sendMessage);
+        document.getElementById("chat-widget-input").addEventListener("keypress", function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            let message = document.getElementById("chat-widget-input").value;
+            if (message.trim() === "") return;
+
+            let chatBody = document.getElementById("chat-widget-body");
+            
+            // Display user message
+            let newMessage = document.createElement("p");
+            newMessage.textContent = message;
+            newMessage.className = "user-message";
+            chatBody.appendChild(newMessage);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            let chatId = getChatId();
+
+            // Send to n8n
+            fetch(window.ChatWidgetConfig.webhook.url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chatId: chatId,
+                    message: message,
+                    route: window.ChatWidgetConfig.webhook.route
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let botMessage = document.createElement("p");
+                botMessage.innerHTML = data.output || "Sorry, I couldn't understand that.";
+                botMessage.className = "bot-message";
+                chatBody.appendChild(botMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                let errorMessage = document.createElement("p");
+                errorMessage.textContent = "Sorry, there was an error connecting to support. Please try again.";
+                errorMessage.className = "bot-message";
+                chatBody.appendChild(errorMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            });
+
+            document.getElementById("chat-widget-input").value = "";
+        }
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.parentElement.querySelector('.product-name').textContent;
+                alert(`"${productName}" has been added to your cart!`);
+                
+                // Add animation
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                this.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                    this.style.background = '#047857';
+                }, 2000);
+            });
+        });
+
+        // Hero button functionality
+        document.querySelector('.hero-btn').addEventListener('click', function() {
+            document.querySelector('#products').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
